@@ -1,28 +1,16 @@
-# 📦 Demand Forecasting & Scorte E-Commerce con LightGBM
+# 📦 Demand Forecasting & Ottimizzazione Scorte con LightGBM
 
-## 📌 Business Problem
-L'errata stima della domanda causa perdite economiche su due fronti:
-- **Overstocking:** Incremento dei costi di mantenimento a magazzino e immobilizzazione di capitale.
-- **Stockout:** Vendite mancate e riduzione della customer satisfaction.
-
-Questo progetto modella la domanda settimanale cross-categoria sull'e-commerce brasiliano Olist per ottimizzare la pianificazione delle scorte.
+## 📌 Executive Summary
+La gestione inefficiente delle scorte genera costi elevati di magazzino (*overstocking*) e perdite di fatturato per rottura di stock (*stockout*). Questo progetto modella la domanda settimanale cross-categoria su dati reali di e-commerce per ottimizzare i piani di riordino.
 
 ## 🛠️ Architettura Tecnica
-- **Dataset:** 100k+ ordini reali da *Olist E-Commerce*.
-- **Modello:** LightGBM Regressor multi-serie su serie storiche aggregate a livello settimanale.
-- **Feature Engineering:**
-  - Lags di domanda ($t-1, t-2, t-4$)
-  - Medie mobili (*Rolling Averages* a 4 e 8 settimane)
-  - Variabili di stagionalità e calendario (*Week of Year*, *Month*)
-- **Validazione:** Split cronologico (Train: 2017-02 fino a 2018-05, Test: ultime 10 settimane).
+- **Dataset:** Olist Brazilian E-Commerce (100k+ ordini).
+- **Modello:** LightGBM Regressor (Multi-Series Time Series Forecasting).
+- **Feature Engineering:** Lags temporali (t-1, t-2, t-4), Rolling Averages (4 e 8 settimane) e variabili di calendario/stagionalità.
+- **Validazione:** Time-based train/test split (ultime 12 settimane come holdout).
 
-## 📊 Risultati & Performance
-- **WAPE (Weighted Absolute Percentage Error):** ~18-22% (standard di riferimento per demand forecasting nel retail).
-- **MAE:** Misurato in unità vendute a settimana per categoria.
+## 📊 Metriche & Performance
+- **WAPE (Weighted Absolute Percentage Error):** Valutazione ponderata sui volumi reali.
+- **Inventory Cost Model:** Quantificazione economica del trade-off tra costi di holding e margine perso per stockout.
 
-### Visualizzazione: Domanda Reale vs Forecast (Test Period)
-![Demand Forecast](demand_forecast_chart.png)
-
-## 💡 Raccomandazioni di Business
-1. **Safety Stock Dinamico:** Utilizzare l'errore medio di previsione (RMSE) per calcolare la scorta di sicurezza ottimale in base al livello di servizio desiderato ($95\%$).
-2. **Riordino Automatico:** Attivare ordini automatici al fornitore quando lo stock scende al di sotto del *Reorder Point (ROP = Lead Time Demand + Safety Stock)*.
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Oi7rcxyWxkUe-86vEbmTnPwmb2kiftkm)
