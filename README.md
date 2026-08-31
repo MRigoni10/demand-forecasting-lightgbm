@@ -21,7 +21,7 @@ Inaccurate demand forecasts lead to either excess holding costs (overstock) or l
 ## Visual Output
 ![Demand Forecast](demand_forecast_chart.png)
 
-## Quickstart
-Open `demand_forecasting.ipynb` in Google Colab to run the data pipeline and model.
+## How to Run the Project
+The full code is available in the interactive notebook. You can run it with a single click:
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Oi7rcxyWxkUe-86vEbmTnPwmb2kiftkm)
