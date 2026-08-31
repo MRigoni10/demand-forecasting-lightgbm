@@ -1,16 +1,27 @@
-# 📦 Demand Forecasting & Ottimizzazione Scorte con LightGBM
+# E-Commerce Demand Forecasting (LightGBM)
 
-## 📌 Executive Summary
-La gestione inefficiente delle scorte genera costi elevati di magazzino (*overstocking*) e perdite di fatturato per rottura di stock (*stockout*). Questo progetto modella la domanda settimanale cross-categoria su dati reali di e-commerce per ottimizzare i piani di riordino.
+A multi-category time series forecasting model to predict weekly sales demand and optimize inventory levels.
 
-## 🛠️ Architettura Tecnica
-- **Dataset:** Olist Brazilian E-Commerce (100k+ ordini).
-- **Modello:** LightGBM Regressor (Multi-Series Time Series Forecasting).
-- **Feature Engineering:** Lags temporali (t-1, t-2, t-4), Rolling Averages (4 e 8 settimane) e variabili di calendario/stagionalità.
-- **Validazione:** Time-based train/test split (ultime 12 settimane come holdout).
+## Overview
+Inaccurate demand forecasts lead to either excess holding costs (overstock) or lost sales (stockouts). This project builds a forecasting model on Brazilian e-commerce transaction data (Olist) to predict weekly units demanded across top product categories.
 
-## 📊 Metriche & Performance
-- **WAPE (Weighted Absolute Percentage Error):** Valutazione ponderata sui volumi reali.
-- **Inventory Cost Model:** Quantificazione economica del trade-off tra costi di holding e margine perso per stockout.
+## Methodology
+- **Dataset:** Olist E-Commerce dataset (orders, items, products).
+- **Time Aggregation:** Resampled transactions to weekly totals for the top 5 product categories.
+- **Feature Engineering:**
+  - Lag features ($t-1$, $t-2$, $t-4$ weeks)
+  - Rolling averages (4 and 8 weeks)
+  - Calendar features (week of year, month)
+- **Model:** A single **LightGBM Regressor** trained on historical data (2017 to mid-2018) and evaluated on a strict 10-week out-of-time test set.
+
+## Performance
+- **WAPE (Weighted Absolute Percentage Error):** `~19%`
+- **Application:** Model forecasts can be directly combined with supplier lead times to calculate dynamic Safety Stock and Reorder Points (ROP).
+
+## Visual Output
+![Demand Forecast](demand_forecast_chart.png)
+
+## Quickstart
+Open `demand_forecasting.ipynb` in Google Colab to run the data pipeline and model.
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Oi7rcxyWxkUe-86vEbmTnPwmb2kiftkm)
